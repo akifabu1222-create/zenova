@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'yinlar Haqida - ZENOVA</title>
+    <link rel="icon" type="image/png" href="img/preview.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff41;
+            --secondary: #ff00ff;
+            --accent: #00d4ff;
+            --dark: #0a0e27;
+            --darker: #050814;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            animation: bgPulse 15s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes bgPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+        
+        .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 8, 20, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 5px 30px rgba(0, 255, 65, 0.2);
+        }
+        nav { display: flex; justify-content: center; align-items: center; padding: 20px 0; }
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-container:hover { transform: scale(1.05); transition: all 0.3s; }
+        .logo-img { 
+            width: 60px; 
+            height: 60px; 
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+        }
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Page Title */
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            font-weight: 900;
+            text-align: center;
+            margin: 60px 0 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Game Info Cards */
+        .game-info-section {
+            margin-bottom: 80px;
+        }
+
+        .game-info-card {
+            background: rgba(15, 20, 40, 0.95);
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: all 0.4s;
+        }
+
+        .game-info-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .game-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(0, 255, 65, 0.2);
+        }
+
+        .game-icon {
+            font-size: 4em;
+            filter: drop-shadow(0 0 10px var(--primary));
+        }
+
+        .game-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .game-subtitle {
+            font-size: 1.3em;
+            color: var(--accent);
+        }
+
+        .game-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .game-description {
+            font-size: 1.2em;
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        .game-features {
+            background: rgba(0, 212, 255, 0.1);
+            padding: 25px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .game-features h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .game-features ul {
+            list-style: none;
+        }
+
+        .game-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.1em;
+        }
+
+        .game-features li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .controls-section {
+            background: rgba(255, 0, 255, 0.1);
+            padding: 25px;
+            border-left: 4px solid var(--secondary);
+            margin-top: 20px;
+        }
+
+        .controls-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 5px;
+        }
+
+        .key {
+            font-family: 'Orbitron', sans-serif;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-weight: 700;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .action {
+            color: #bbb;
+            font-size: 1.1em;
+        }
+
+        .tips-section {
+            background: rgba(0, 255, 65, 0.05);
+            padding: 25px;
+            border: 2px dashed var(--primary);
+            margin-top: 20px;
+        }
+
+        .tips-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .tips-section p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 10px;
+        }
+
+        .play-now-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--dark);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .play-now-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 30px rgba(0, 255, 65, 0.5);
+        }
+
+        footer {
+            background: var(--darker);
+            border-top: 2px solid var(--primary);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+        footer p { color: #888; font-size: 1.1em; margin: 5px 0; }
+        .creator {
+            font-size: 1.3em;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .game-content { grid-template-columns: 1fr; }
+            .controls-grid { grid-template-columns: 1fr; }
+            .page-title { font-size: 2.5em; }
+            .game-title { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" style="text-decoration: none;">
+                    <div class="logo-container">
+                        <img src="img/preview.webp" alt="ZENOVA Logo" class="logo-img">
+                        <div class="logo-text">ZENOVA</div>
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="page-title">🎮 O'YINLAR HAQIDA MA'LUMOT</h1>
+
+            <div class="game-info-section">
+                <!-- BLOCK CRAFT 3D -->
+                <div class="game-info-card">
+                    <div class="game-header">
+                        <div class="game-icon">🟩</div>
+                        <div>
+                            <h2 class="game-title">BLOCK CRAFT 3D</h2>
+                            <p class="game-subtitle">Professional Minecraft-Style Building Game</p>
+                        </div>
+                    </div>
+
+                    <div class="game-content">
+                        <div class="game-description">
+                            <p>Block Craft 3D - bu Minecraft uslubidagi professional qurish o'yini. Siz cheksiz dunyoda o'z binolaringizni qura olasiz. Har xil rangdagi bloklardan foydalanib, o'z tasavvuringizni haqiqatga aylantiring.</p>
+                            <p>O'yin sizga erkin ijod qilish imkoniyatini beradi. Uylar, qal'alar, osmono'par binolar va boshqa ko'plab narsalarni qurishingiz mumkin. Har bir blok alohida rangga ega va siz ularni istagan joyga joylashtirishingiz mumkin.</p>
+                        </div>
+
+                        <div class="game-features">
+                            <h3>⭐ Asosiy Xususiyatlar</h3>
+                            <ul>
+                                <li>Cheksiz dunyo o'lchami</li>
+                                <li>5 xil rangdagi bloklar</li>
+                                <li>Erkin qurish rejimi</li>
+                                <li>Silliq animatsiyalar</li>
+                                <li>Oson boshqaruv tizimi</li>
+                                <li>Avtomatik saqlash</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="controls-section">
+                        <h3>🎮 Boshqaruv</h3>
+                        <div class="controls-grid">
+                            <div class="control-item">
+                                <span class="key">W</span>
+                                <span class="action">Yuqoriga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">A</span>
+                                <span class="action">Chapga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">S</span>
+                                <span class="action">Pastga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">D</span>
+                                <span class="action">O'ngga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">SPACE</span>
+                                <span class="action">Blok qo'yish</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h3>💡 Maslahatlar</h3>
+                        <p>• Katta inshootlar qurishdan oldin rejani chizing</p>
+                        <p>• Har xil rangdagi bloklarni aralashtirib, go'zal dizaynlar yarating</p>
+                        <p>• Birinchi navbatda poydevor quring, keyin devorlarni</p>
+                        <p>• Bloklar soni cheklanmagan, xohlagancha quring!</p>
+                    </div>
+
+                    <a href="index.html" class="play-now-btn">HOZIR O'YNASH ▶</a>
+                </div>
+
+                <!-- GALAXY DEFENDER -->
+                <div class="game-info-card">
+                    <div class="game-header">
+                        <div class="game-icon">🚀</div>
+                        <div>
+                            <h2 class="game-title">GALAXY DEFENDER</h2>
+                            <p class="game-subtitle">Advanced Space Shooter Game</p>
+                        </div>
+                    </div>
+
+                    <div class="game-content">
+                        <div class="game-description">
+                            <p>Galaxy Defender - bu tez sur'atli kosmik shooter o'yini. Siz galaktikani begona kemalardan himoya qiluvchi qahramonsiz. Har bir dushmanni yo'q qilish uchun aniq nishonga olish va tez reaktsiya kerak.</p>
+                            <p>O'yin davomida dushmanlar tobora ko'payib boradi va tezlashadi. Maksimal ball to'plash uchun iloji boricha ko'proq dushmanlarni yo'q qiling va ularning hujumlaridan qoching.</p>
+                        </div>
+
+                        <div class="game-features">
+                            <h3>⭐ Asosiy Xususiyatlar</h3>
+                            <ul>
+                                <li>Dinamik o'yin jarayoni</li>
+                                <li>8 tagacha dushman bir vaqtda</li>
+                                <li>5 ta o'q bir vaqtda otish</li>
+                                <li>Progressiv qiyinlik darajasi</li>
+                                <li>Ball tizimi</li>
+                                <li>Neon vizual effektlar</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="controls-section">
+                        <h3>🎮 Boshqaruv</h3>
+                        <div class="controls-grid">
+                            <div class="control-item">
+                                <span class="key">A</span>
+                                <span class="action">Chapga harakat</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">D</span>
+                                <span class="action">O'ngga harakat</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">SPACE</span>
+                                <span class="action">O'q otish</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h3>💡 Maslahatlar</h3>
+                        <p>• Doimiy harakatda bo'ling - bu sizni dushman hujumidan saqlaydi</p>
+                        <p>• Dushmanlarni ekranning yuqori qismida yo'q qiling</p>
+                        <p>• Bir vaqtning o'zida 5 ta o'q otishingiz mumkin</p>
+                        <p>• Har bir dushman 10 ball beradi</p>
+                    </div>
+
+                    <a href="index.html" class="play-now-btn">HOZIR O'YNASH ▶</a>
+                </div>
+
+                <!-- CYBER SNAKE -->
+                <div class="game-info-card">
+                    <div class="game-header">
+                        <div class="game-icon">🐍</div>
+                        <div>
+                            <h2 class="game-title">CYBER SNAKE</h2>
+                            <p class="game-subtitle">Modern Neon Snake Game</p>
+                        </div>
+                    </div>
+
+                    <div class="game-content">
+                        <div class="game-description">
+                            <p>Cyber Snake - bu klassik ilon o'yinining zamonaviy neon versiyasi. Maqsad - oziq-ovqatni yeb, ilonni iloji boricha uzun qilish. Lekin diqqatli bo'ling, o'zingizga yoki devorgaham urilmang!</p>
+                            <p>Har safar oziq-ovqat yeganda, ilon uzayadi va harakat qilish qiyinlashadi. Bu oddiy ko'rinsa-da, juda qiziqarli va murakkab o'yin. Eng yuqori ballga erishishga harakat qiling!</p>
+                        </div>
+
+                        <div class="game-features">
+                            <h3>⭐ Asosiy Xususiyatlar</h3>
+                            <ul>
+                                <li>Neon grafika va effektlar</li>
+                                <li>Silliq animatsiya</li>
+                                <li>Progressiv qiyinlik</li>
+                                <li>Cheksiz o'yin</li>
+                                <li>Har bir ovqat 10 ball</li>
+                                <li>Rangdor dizayn</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="controls-section">
+                        <h3>🎮 Boshqaruv</h3>
+                        <div class="controls-grid">
+                            <div class="control-item">
+                                <span class="key">↑</span>
+                                <span class="action">Yuqoriga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">↓</span>
+                                <span class="action">Pastga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">←</span>
+                                <span class="action">Chapga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">→</span>
+                                <span class="action">O'ngga</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h3>💡 Maslahatlar</h3>
+                        <p>• Teskari yo'nalishga burilish mumkin emas</p>
+                        <p>• Ilonning boshi dumiga tegmasligi kerak</p>
+                        <p>• Devorgacha etib bormaslikka harakat qiling</p>
+                        <p>• Rejalarni oldindan o'ylang - uzun ilon bilan harakat qilish qiyin</p>
+                    </div>
+
+                    <a href="index.html" class="play-now-btn">HOZIR O'YNASH ▶</a>
+                </div>
+
+                <!-- NEON PONG -->
+                <div class="game-info-card">
+                    <div class="game-header">
+                        <div class="game-icon">🏓</div>
+                        <div>
+                            <h2 class="game-title">NEON PONG</h2>
+                            <p class="game-subtitle">Classic Pong in Modern Style</p>
+                        </div>
+                    </div>
+
+                    <div class="game-content">
+                        <div class="game-description">
+                            <p>Neon Pong - bu klassik Pong o'yinining zamonaviy versiyasi. Siz kompyuterga qarshi o'ynaysiz va to'pni qaytarib urish orqali ball to'plasiz. Bu oddiy, lekin juda qiziqarli o'yin!</p>
+                            <p>Maqsad - to'pni dushman darvozasiga kiritish va o'z darvozangizni himoya qilish. Kompyuter aqlli va tez, shuning uchun g'olib bo'lish uchun aniq va tez harakatlar kerak.</p>
+                        </div>
+
+                        <div class="game-features">
+                            <h3>⭐ Asosiy Xususiyatlar</h3>
+                            <ul>
+                                <li>AI dushmanga qarshi</li>
+                                <li>Tez va dinamik o'yin</li>
+                                <li>Ball hisoblagich</li>
+                                <li>Neon dizayn</li>
+                                <li>Silliq fizika</li>
+                                <li>Cheksiz o'yin</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="controls-section">
+                        <h3>🎮 Boshqaruv</h3>
+                        <div class="controls-grid">
+                            <div class="control-item">
+                                <span class="key">W</span>
+                                <span class="action">Yuqoriga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">S</span>
+                                <span class="action">Pastga</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h3>💡 Maslahatlar</h3>
+                        <p>• To'pning yo'nalishini bashorat qilishga harakat qiling</p>
+                        <p>• Raketingizni to'p traektoriyasiga oldindan joylashtiring</p>
+                        <p>• Raketaning chetlari bilan urish to'pning burchagini o'zgartiradi</p>
+                        <p>• Kompyuter tez, lekin siz tezroq bo'lishingiz mumkin!</p>
+                    </div>
+
+                    <a href="index.html" class="play-now-btn">HOZIR O'YNASH ▶</a>
+                </div>
+
+                <!-- TETRIS ULTIMATE -->
+                <div class="game-info-card">
+                    <div class="game-header">
+                        <div class="game-icon">🧩</div>
+                        <div>
+                            <h2 class="game-title">TETRIS ULTIMATE</h2>
+                            <p class="game-subtitle">Professional Tetris Experience</p>
+                        </div>
+                    </div>
+
+                    <div class="game-content">
+                        <div class="game-description">
+                            <p>Tetris Ultimate - bu dunyodagi eng mashhur puzzle o'yinining professional versiyasi. Yuqoridan tushadigan bloklarni to'g'ri joylashtiring va to'liq qatorlar yarating. Har bir to'liq qator yo'qoladi va sizga ball beradi.</p>
+                            <p>O'yin tobora tezlashadi va qiyinlashadi. Maqsad - iloji boricha ko'proq ball to'plash va o'yinni iloji boricha uzoq davom ettirish. Bu klassik o'yin strategiya va tez fikrlashni talab qiladi.</p>
+                        </div>
+
+                        <div class="game-features">
+                            <h3>⭐ Asosiy Xususiyatlar</h3>
+                            <ul>
+                                <li>Klassik Tetris mexanikasi</li>
+                                <li>3 xil shakl</li>
+                                <li>Progressiv tezlik</li>
+                                <li>Har qator 100 ball</li>
+                                <li>Neon ranglar</li>
+                                <li>Silliq animatsiya</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="controls-section">
+                        <h3>🎮 Boshqaruv</h3>
+                        <div class="controls-grid">
+                            <div class="control-item">
+                                <span class="key">←</span>
+                                <span class="action">Chapga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">→</span>
+                                <span class="action">O'ngga</span>
+                            </div>
+                            <div class="control-item">
+                                <span class="key">↓</span>
+                                <span class="action">Tez tushirish</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h3>💡 Maslahatlar</h3>
+                        <p>• Bo'sh joylarni qoldirmaslikka harakat qiling</p>
+                        <p>• Keyingi shaklni hisobga olib o'ylang</p>
+                        <p>• Bir nechta qatorni bir vaqtda to'ldirish ko'proq ball beradi</p>
+                        <p>• O'yinning yuqori qismiga erishishdan ehtiyot bo'ling!</p>
+                    </div>
+
+                    <a href="index.html" class="play-now-btn">HOZIR O'YNASH ▶</a>
+                </div>
+
+                <!-- PRECISION SHOOTER -->
+                <div class="game-info-card">
+                    <div class="game-header">
+                        <div class="game-icon">🎯</div>
+                        <div>
+                            <h2 class="game-title">PRECISION SHOOTER</h2>
+                            <p class="game-subtitle">Accuracy and Speed Test</p>
+                        </div>
+                    </div>
+
+                    <div class="game-content">
+                        <div class="game-description">
+                            <p>Precision Shooter - bu reaktsiya va aniqlik tezligini sinaydigan o'yin. Ekranda paydo bo'ladigan nishonlarni tez va aniq bosingiz. Har bir nishon 10 ball beradi.</p>
+                            <p>Nishonlar tasodifiy joylarda paydo bo'ladi va pastga tushadi. Ularni ekrandan tushib ketguncha bosishingiz kerak. Bu oddiy, lekin juda qiziqarli va musobaqa ruhini oshiradigan o'yin!</p>
+                        </div>
+
+                        <div class="game-features">
+                            <h3>⭐ Asosiy Xususiyatlar</h3>
+                            <ul>
+                                <li>Tez reaktsiya testi</li>
+                                <li>Harakatlanuvchi nishonlar</li>
+                                <li>Har soniyada yangi nishon</li>
+                                <li>Ball tizimi</li>
+                                <li>Neon effektlar</li>
+                                <li>Cheksiz o'yin</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="controls-section">
+                        <h3>🎮 Boshqaruv</h3>
+                        <div class="controls-grid">
+                            <div class="control-item">
+                                <span class="key">MOUSE</span>
+                                <span class="action">Nishonga bosish</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tips-section">
+                        <h3>💡 Maslahatlar</h3>
+                        <p>• Nishonlarning markaziga bosing - aniqroq</p>
+                        <p>• Tez reaktsiya ko'rsating - nishonlar tushib ketadi</p>
+                        <p>• Bir nechta nishonni ketma-ket bosganda bonus ball olasiz</p>
+                        <p>• Koordinatsiya va e'tiboringizni jamlang!</p>
+                    </div>
+
+                    <a href="index.html" class="play-now-btn">HOZIR O'YNASH ▶</a>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p class="creator">⚡ Created by Akif_VorteX ⚡</p>
+            <p>&copy; 2022-2026 ZENOVA - Barcha huquqlar himoyalangan</p>
+            <p>O'zbekistonning №1 o'yinlar platformasi</p>
+            <p>Aloqa: +998 94 209 28 06 | <a href="https://www.youtube.com/@Zenova-Gaming1" class="__cf_email__" data--cfemail="31585f575e714b545f5e47501f444b">[@&#160;Zenova-Gaming1]</a>
+        </div>
+    </footer>
+    </body>
+        

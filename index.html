@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENOVA - O'zbekistonning №1 Gaming Platformasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ZENOVA - O'zbekistonning №1 Gaming Platformasi</title>
+        
+        <!-- FAVICON - SHU QATORNI QO'SHING -->
+        <link rel="icon" type="image/png" href="img/preview.webp">
+                
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="profile.html">
+    </head>
+    <style>
+        :root {
+            --primary: #00ff41;
+            --secondary: #ff00ff;
+            --accent: #00d4ff;
+            --dark: #0a0e27;
+            --darker: #050814;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80% rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            animation: bgPulse 15s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes bgPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+        .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        header {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(5, 8, 20, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 5px 30px rgba(0, 255, 65, 0.2);
+        }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; flex-wrap: wrap; gap: 20px; }
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img { 
+            width: 60px; 
+            height: 60px; 
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+        }
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        nav ul { display: flex; gap: 15px; list-style: none; flex-wrap: wrap; }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        nav a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+        }
+        .hero { padding: 80px 0; text-align: center; }
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideDown 1s ease-out;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero p { font-size: 1.5em; color: var(--accent); margin-bottom: 40px; }
+        .stats { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; margin-top: 30px; }
+        .stat-item { text-align: center; }
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
+        }
+        .stat-label { color: #888; font-size: 1.2em; text-transform: uppercase; }
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3em;
+            font-weight: 900;
+            text-align: center;
+            margin: 80px 0 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        .game-card {
+            background: rgba(15, 20, 40, 0.95);
+            border: 2px solid rgba(0, 255, 65, 0.3);
+            padding: 30px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+        .game-card:hover::before {
+            top: 100%;
+            left: 100%;
+        }
+        .game-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(0, 255, 65, 0.4);
+        }
+        .game-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8em;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .game-card p { color: #bbb; margin-bottom: 20px; line-height: 1.6; }
+        .play-button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--dark);
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 1px;
+            font-size: 1em;
+        }
+        .play-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.5);
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+        .catalog-item {
+            background: rgba(15, 20, 40, 0.95);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            padding: 25px;
+            transition: all 0.3s;
+        }
+        .catalog-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+        .catalog-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .catalog-item p { color: #bbb; line-height: 1.5; }
+        .catalog-item .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(255, 0, 255, 0.3);
+            color: var(--secondary);
+            font-size: 0.9em;
+            margin-top: 10px;
+            border: 1px solid var(--secondary);
+            margin-right: 5px;
+        }
+        .rating { color: #ffd700; font-size: 1.2em; margin-top: 10px; }
+        .leaderboard {
+            background: rgba(15, 20, 40, 0.95);
+            border: 2px solid var(--accent);
+            padding: 30px;
+            margin-bottom: 80px;
+        }
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
+        }
+        .leaderboard-item:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateX(10px);
+        }
+        .leaderboard-rank {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8em;
+            color: var(--primary);
+            font-weight: 900;
+            min-width: 60px;
+        }
+        .leaderboard-name { flex: 1; font-size: 1.3em; font-weight: 600; }
+        .leaderboard-score {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.3em;
+        }
+        .about-section {
+            background: rgba(15, 20, 40, 0.95);
+            border: 2px solid var(--primary);
+            padding: 50px;
+            margin-bottom: 80px;
+            text-align: center;
+        }
+        .about-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+        .about-content {
+            font-size: 1.3em;
+            line-height: 2;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2em;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .game-container {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.97);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .game-container.active { display: flex; }
+        .game-wrapper { position: relative; }
+        canvas {
+            border: 3px solid var(--primary);
+            box-shadow: 0 0 50px rgba(0, 255, 65, 0.5);
+            display: block;
+            background: #000;
+        }
+        .close-game {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+        }
+        .close-game:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+        .game-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 25px;
+            border: 2px solid var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            color: var(--primary);
+        }
+        footer {
+            background: var(--darker);
+            border-top: 2px solid var(--primary);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        footer p { color: #888; font-size: 1.1em; margin: 5px 0; }
+        .creator {
+            font-size: 1.3em;
+            color: var(--accent);
+            font-weight: 700;
+            text-shadow: 0 0 10px var(--accent);
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5em; }
+            .logo-text { font-size: 1.8em; }
+            .logo-img { width: 45px; height: 45px; }
+            .stat-number { font-size: 2em; }
+            nav ul { gap: 10px; }
+            .about-section { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="img/preview.webp" alt="ZENOVA Logo" class="logo-img">
+                    <div class="logo-text">ZENOVA</div>
+                </div>
+                <ul>
+                    <li><a href="games-info.html">O'yinlar Haqida</a></li>
+                    <li><a href="catalog.html">O'yinlar 2 Haqida</a></li>
+                    <li><a href="#games">O'yinlar</a></li>
+                    <li><a href="#leaderboard">Rekorlar</a></li>
+                    <li><a href="#catalog">Katalog</a></li>
+                    <li><a href="#about">Biz Haqimizda</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <h1>ZENOVA GAMING</h1>
+                <p>O'zbekistonning №1 Professional Gaming Platformasi</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">O'ynaladigan O'yinlar</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">O'yinlar Katalogi</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Onlayn Xizmat</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="games">
+            <div class="container">
+                <h2 class="section-title">🎮 PREMIUM O'YINLAR</h2>
+                <div class="games-grid">
+                    <div class="game-card">
+                        <h3>🟩 BLOCK CRAFT 3D</h3>
+                        <p>Professional Minecraft-style o'yin. WASD bilan harakat qiling, SPACE tugmasi bilan blok qo'ying. Cheksiz dunyo yarating!</p>
+                        <button class="play-button" onclick="startGame('minecraft')">O'YNASH</button>
+                    </div>
+                    <div class="game-card">
+                        <h3>🚀 GALAXY DEFENDER</h3>
+                        <p>Ilg'or kosmik shooter. WASD - harakat, SPACE - otish. Galaktikani dushmanlardan himoya qiling!</p>
+                        <button class="play-button" onclick="startGame('shooter')">O'YNASH</button>
+                    </div>
+                    <div class="game-card">
+                        <h3>🐍 CYBER SNAKE</h3>
+                        <p>Zamonaviy neon ilon o'yini. O'q tugmalari bilan boshqaring. Eng uzun ilonga aylaning!</p>
+                        <button class="play-button" onclick="startGame('snake')">O'YNASH</button>
+                    </div>
+                    <div class="game-card">
+                        <h3>🏓 NEON PONG</h3>
+                        <p>Klassik Pong zamonaviy uslubda. W/S va o'qlar bilan boshqarish. Kompyuterni mag'lub eting!</p>
+                        <button class="play-button" onclick="startGame('pong')">O'YNASH</button>
+                    </div>
+                    <div class="game-card">
+                        <h3>🧩 TETRIS ULTIMATE</h3>
+                        <p>Professional Tetris tajribasi. O'qlar va SPACE tugmasi. Eng yuqori rekord qo'ying!</p>
+                        <button class="play-button" onclick="startGame('tetris')">O'YNASH</button>
+                    </div>
+                    <div class="game-card">
+                        <h3>🎯 PRECISION SHOOTER</h3>
+                        <p>Aniqlik va tezlik testi. Tez harakatlanuvchi nishonlarni urish. Reaktsiyangizni sinang!</p>
+                        <button class="play-button" onclick="startGame('target')">O'YNASH</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="leaderboard">
+            <div class="container">
+                <h2 class="section-title">🏆 TOP O'YINCHILAR</h2>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#1</span>
+                        <span class="leaderboard-name">Akif_VorteX</span>
+                        <span class="leaderboard-score">56,850</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#2</span>
+                        <span class="leaderboard-name">Pro_Gamer_UZ</span>
+                        <span class="leaderboard-score">14,920</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#3</span>
+                        <span class="leaderboard-name">Cyber_Ninja</span>
+                        <span class="leaderboard-score">13,680</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#4</span>
+                        <span class="leaderboard-name">Speed_Demon</span>
+                        <span class="leaderboard-score">12,540</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#5</span>
+                        <span class="leaderboard-name">Shadow_Master</span>
+                        <span class="leaderboard-score">11,890</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#6</span>
+                        <span class="leaderboard-name">Thunder_Strike</span>
+                        <span class="leaderboard-score">10,750</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#7</span>
+                        <span class="leaderboard-name">Galaxy_Hunter</span>
+                        <span class="leaderboard-score">9,820</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#8</span>
+                        <span class="leaderboard-name">Neon_Warrior</span>
+                        <span class="leaderboard-score">8,950</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#9</span>
+                        <span class="leaderboard-name">Pixel_Legend</span>
+                        <span class="leaderboard-score">8,120</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="leaderboard-rank">#10</span>
+                        <span class="leaderboard-name">Quantum_Player</span>
+                        <span class="leaderboard-score">7,640</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalog">
+            <div class="container">
+                <h2 class="section-title">🎮 MASHHUR O'YINLAR KATALOGI</h2>
+                <div class="catalog-grid">
+                    <div class="catalog-item">
+                        <h4>PUBG MOBILE</h4>
+                        <p>100 o'yinchi, bitta g'olib. Eng mashhur mobile battle royale o'yini dunyoda.</p>
+                        <span><a href="https://pubg-mobile-tencent-games.en.aptoide.com/app" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[PUBG MOBILE&#160;]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                    <div class="catalog-item">
+                        <h4>MINECRAFT</h4>
+                        <p>Cheksiz imkoniyatlar dunyosi. Quring, kashf eting va o'z dunyongizni yarating!</p>
+                        <span><a href="https://klauncher.gg/minecraft/versions" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Dowload for free&#160;]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                    <div class="catalog-item">
+                        <h4>FORTNITE</h4>
+                         <p>Qurish va otishma kombinatsiyasi. Jonli va dinamik battle royale tajribasi.</p>
+                        <span><a href="https://www.fortnite.com/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Play]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                    <div class="catalog-item">
+                        <h4>COUNTER-STRIKE 2</h4>
+                        <p>Yangilangan klassik taktik shooter. Professional e-sport o'yini.</p>
+                        <span><a href="https://www.counter-strike.net/cs2" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Play]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                    <div class="catalog-item">
+                        <h4>VALORANT</h4>
+                        <p>5v5 taktik FPS qobiliyatlar bilan. Riot Games'dan eng yaxshi shooter.</p>
+                        <span><a href="https://playvalorant.com/en-us/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Play for free]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                    <div class="catalog-item">
+                        <h4>GTA V</h4>
+                        <p>Ochiq dunyo jinoyat sarguzashti. Los Santos shahrida erkin hayot.</p>
+                        <span><a href="https://www.rockstargames.com/gta-v" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[buy now]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                    <div class="catalog-item">
+                        <h4>LEAGUE OF LEGENDS</h4>
+                        <p>Dunyodagi eng mashhur MOBA. 160+ champion va strategiya.</p>
+                        <span><a href="https://www.mobilelegends.com/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Dowload for free]]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                    <div class="catalog-item">
+                        <h4>DOTA 2</h4>
+                        <p>Professional e-sport MOBA. Murakkab va mukofotli gameplay.</p>
+                        <span><a href="https://www.dota2.com/home" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Dowload for free]]</a></span>
+                        <div class="rating">★★★★★</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>📞 BIZ HAQIMIZDA</h2>
+                <div class="about-content">
+                    <p>ZENOVA - O'zbekistondagi professional o'yinlar platformasi. Biz 2022 yildan beri o'yinchilar uchun eng sifatli va qiziqarli o'yin tajribasini taqdim etamiz.</p>
+                    <p>Bizning maqsadimiz - har bir o'yinchiga eng yaxshi o'yinlar va professional xizmatni taqdim etish. Biz doim rivojlanmoqdamiz va yangi o'yinlar qo'shmoqdamiz.</p>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <span>+998 94 209 28 06</span>
+                    </div>
+                    <div class="contact-item">
+                        <span>✉️</span>
+                        <span><a href="https://web.telegram.org/a/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[@t.me&#160;AbdurashidovAkif]</a></span>
+                        <span>▶</span>
+                        <a href="https://www.youtube.com/@Zenova-Gaming1" class="__cf_email__" data-cfemail="31585f575e714b545f5e47501f444b">[@&#160;Zenova-Gaming1]</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="creator">⚡ Created by Akif_VorteX ⚡</p>
+                <p>&copy; 2022-2026 ZENOVA - Barcha huquqlar himoyalangan</p>
+                <p>O'zbekistonning professional o'yinlar platformasi</p>
+                <p>Aloqa: +998 94 209 28 06 | <a href="https://web.telegram.org/a/" class="__cf_email__" data-cfemail="31585f575e714b545f5e47501f444b">[@t.me&#160;AbdurashidovAkif]</a></p>
+                <a href="https://www.youtube.com/@Zenova-Gaming1" class="__cf_email__" data-cfemail="31585f575e714b545f5e47501f444b">[@&#160;Zenova-Gaming1]</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="game-container" id="gameContainer">
+        <div class="game-wrapper">
+            <button class="close-game" onclick="closeGame()">✕ YOPISH</button>
+            <div class="game-info" id="gameInfo"></div>
+            <canvas id="gameCanvas"></canvas>
+        </div>
+    </div>
+
+    <!-- Welcome Overlay -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-content">
+            <img src="img/preview.webp" alt="ZENOVA" class="welcome-logo">
+            <h1 class="welcome-title">Welcome to ZENOVA</h1>
+            <p class="welcome-subtitle">O'zbekistonning professional Gaming Platformasi</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #050814, #0a0e27);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease-out 2.5s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        .welcome-content {
+            text-align: center;
+            animation: scaleIn 0.8s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .welcome-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 30px;
+            animation: float 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(255, 0, 255, 0.8));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9)); }
+        }
+
+        .welcome-subtitle {
+            font-size: 1.5em;
+            color: #00d4ff;
+            margin-bottom: 40px;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .loading-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff41, #00d4ff);
+            animation: loading 2.5s ease-out forwards;
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.8);
+        }
+
+        @keyframes loading {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+    </style>
+
+    <script>
+        // Welcome overlay'ni 3 sekunddan keyin o'chirish
+        setTimeout(function() {
+            var overlay = document.getElementById('welcomeOverlay');
+            if (overlay) {
+                overlay.style.display = 'none';
+            }
+        }, 3000);
+    </script>
+
+    <script src="game-core.js"></script>
+    <script src="auth-integration.js"></script>
+    <script src="leaderboard-update.js"></script>  
+    <script src="auto-redirect.js"></script>
+    
+</body>
+</html>

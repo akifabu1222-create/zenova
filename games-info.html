@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O'yinlar Katalogi - ZENOVA</title>
+    <link rel="icon" type="image/png" href="img/preview.webp">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ff41;
+            --secondary: #ff00ff;
+            --accent: #00d4ff;
+            --dark: #0a0e27;
+            --darker: #050814;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--darker);
+            color: #fff;
+            line-height: 1.6;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+            animation: bgPulse 15s ease-in-out infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+        @keyframes bgPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.6; } }
+        
+        .container { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 8, 20, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 5px 30px rgba(0, 255, 65, 0.2);
+        }
+        nav { display: flex; justify-content: center; align-items: center; padding: 20px 0; }
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-container:hover { transform: scale(1.05); transition: all 0.3s; }
+        .logo-img { 
+            width: 60px; 
+            height: 60px; 
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 255, 0.5));
+        }
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            font-weight: 900;
+            text-align: center;
+            margin: 60px 0 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.5em;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        /* Search Box */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 60px;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 18px 25px;
+            font-size: 1.2em;
+            background: rgba(15, 20, 40, 0.95);
+            border: 2px solid var(--accent);
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+
+        .search-box::placeholder {
+            color: #888;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            color: var(--accent);
+            pointer-events: none;
+        }
+
+        .game-count {
+            text-align: center;
+            font-size: 1.2em;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 80px;
+        }
+
+        .catalog-item {
+            background: rgba(15, 20, 40, 0.95);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .catalog-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+
+        .catalog-item:hover::before {
+            transform: translateX(100%);
+        }
+
+        .catalog-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .catalog-item.hidden {
+            display: none;
+        }
+
+        .catalog-item h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .catalog-item p { 
+            color: #bbb; 
+            line-height: 1.5; 
+            margin-bottom: 15px;
+        }
+
+        .catalog-item .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(255, 0, 255, 0.3);
+            color: var(--secondary);
+            font-size: 0.9em;
+            margin-top: 10px;
+            border: 1px solid var(--secondary);
+            margin-right: 5px;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .catalog-item .tag:hover {
+            background: rgba(255, 0, 255, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        .rating { 
+            color: #ffd700; 
+            font-size: 1.2em; 
+            margin-top: 10px; 
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.5em;
+            color: #888;
+            margin: 60px 0;
+            display: none;
+        }
+
+        .no-results.show {
+            display: block;
+        }
+
+        footer {
+            background: var(--darker);
+            border-top: 2px solid var(--primary);
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 100px;
+        }
+        footer p { color: #888; font-size: 1.1em; margin: 5px 0; }
+        .creator {
+            font-size: 1.3em;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .catalog-grid { grid-template-columns: 1fr; }
+            .page-title { font-size: 2.5em; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" style="text-decoration: none;">
+                    <div class="logo-container">
+                        <img src="img/preview.webp" alt="ZENOVA Logo" class="logo-img">
+                        <div class="logo-text">ZENOVA</div>
+                    </div>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="page-title">🎮 MASHHUR O'YINLAR KATALOGI</h1>
+            <p class="page-subtitle">Dunyoning eng yaxshi o'yinlari haqida batafsil ma'lumot</p>
+
+            <!-- Search Box -->
+            <div class="search-container">
+                <input type="text" id="searchBox" class="search-box" placeholder="O'yinni qidiring...">
+                <span class="search-icon">🔍</span>
+            </div>
+
+            <div class="game-count" id="gameCount">52 ta o'yin topildi</div>
+
+            <div class="no-results" id="noResults">⚠️ Hech narsa topilmadi<a href="https://www.google.com/"> Google orqali qidirish </a></div>
+
+            <div class="catalog-grid" id="catalogGrid">
+                <div class="catalog-item">
+                    <h4>PUBG MOBILE</h4>
+                    <p>100 o'yinchi, bitta g'olib. Eng mashhur mobile battle royale o'yini dunyoda.</p>
+                    <a href="https://www.pubgmobile.com/" target="_blank" class="tag">BATTLE ROYALE</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>MINECRAFT</h4>
+                    <p>Cheksiz imkoniyatlar dunyosi. Quring, kashf eting va o'z dunyongizni yarating!</p>
+                    <a href="https://klauncher.gg/en" target="_blank" class="tag">SARGUZASHT</a>
+                    <a href="https://www.minecraft.net/" target="_blank" class="tag">KREATIV</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>FORTNITE</h4>
+                    <p>Qurish va otishma kombinatsiyasi. Jonli va dinamik battle royale tajribasi.</p>
+                    <a href="https://www.fortnite.com/" target="_blank" class="tag">BATTLE ROYALE</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>COUNTER-STRIKE 2</h4>
+                    <p>Yangilangan klassik taktik shooter. Professional e-sport o'yini.</p>
+                    <a href="https://www.counter-strike.net/" target="_blank" class="tag">FPS</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>VALORANT</h4>
+                    <p>5v5 taktik FPS qobiliyatlar bilan. Riot Games'dan eng yaxshi shooter.</p>
+                    <a href="https://playvalorant.com/" target="_blank" class="tag">TAKTIK FPS</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>GTA V</h4>
+                    <p>Ochiq dunyo jinoyat sarguzashti. Los Santos shahrida erkin hayot.</p>
+                    <a href="https://www.rockstargames.com/gta-v" target="_blank" class="tag">OCHIQ DUNYO</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>LEAGUE OF LEGENDS</h4>
+                    <p>Dunyodagi eng mashhur MOBA. 160+ champion va strategiya.</p>
+                    <a href="https://www.leagueoflegends.com/" target="_blank" class="tag">MOBA</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>DOTA 2</h4>
+                    <p>Professional e-sport MOBA. Murakkab va mukofotli gameplay.</p>
+                    <a href="https://www.dota2.com/" target="_blank" class="tag">MOBA</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>APEX LEGENDS</h4>
+                    <p>Hero-asosli tez sur'atli battle royale. Noyob qobiliyatlar va jamoaviy ish.</p>
+                    <a href="https://www.ea.com/games/apex-legends" target="_blank" class="tag">BATTLE ROYALE</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>CALL OF DUTY: MW3</h4>
+                    <p>Eng mashhur FPS seriyasining eng yangi versiyasi. Ajoyib grafika va aksiya.</p>
+                    <a href="https://www.callofduty.com/" target="_blank" class="tag">FPS</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>FC 24</h4>
+                    <p>Eng yaxshi futbol simulyatori. EA Sports'dan professional o'yin.</p>
+                    <a href="https://www.ea.com/games/ea-sports-fc" target="_blank" class="tag">SPORT</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>ROCKET LEAGUE</h4>
+                    <p>Mashinalarda futbol! Noyob sport va poyga kombinatsiyasi.</p>
+                    <a href="https://www.rocketleague.com/" target="_blank" class="tag">SPORT</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>THE WITCHER 3</h4>
+                    <p>Sehrli dunyo va ajoyib RPG sarguzasht. 100+ soatlik o'yin vaqti.</p>
+                    <a href="https://www.thewitcher.com/" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>ELDEN RING</h4>
+                    <p>Dark fantasy ochiq dunyo. FromSoftware'dan qiyin va mukofotli o'yin.</p>
+                    <a href="https://en.bandainamcoent.eu/elden-ring/elden-ring" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>CYBERPUNK 2077</h4>
+                    <p>Futuristik Night City shahri. Neon va texnologiya dunyosi.</p>
+                    <a href="https://www.cyberpunk.net/" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>RED DEAD REDEMPTION 2</h4>
+                    <p>G'arbiy dunyo simulyatori. Eng yaxshi hikoya va grafika.</p>
+                    <a href="https://www.rockstargames.com/reddeadredemption2" target="_blank" class="tag">OCHIQ DUNYO</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>OVERWATCH 2</h4>
+                    <p>Jamoaviy hero shooter. 40+ noyob qahramonlar va qobiliyatlar.</p>
+                    <a href="https://overwatch.blizzard.com/" target="_blank" class="tag">HERO SHOOTER</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>ROBLOX</h4>
+                    <p>O'z o'yinlaringizni yarating. Millionlab user-generated kontentlar.</p>
+                    <a href="https://www.roblox.com/" target="_blank" class="tag">KREATIV</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>AMONG US</h4>
+                    <p>Ijtimoiy deduksiya o'yini. Do'stlar bilan xiyonat va sirlar.</p>
+                    <a href="https://www.innersloth.com/games/among-us/" target="_blank" class="tag">IJTIMOIY</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>FORZA HORIZON 5</h4>
+                    <p>Ochiq dunyo poyga simulyatori. Meksikadagi ajoyib peyzajlar.</p>
+                    <a href="https://forza.net/horizon" target="_blank" class="tag">POYGA</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>WARZONE 2.0</h4>
+                    <p>Call of Duty battle royale. Realistik jangovar harakatlar va katta xarita.</p>
+                    <a href="https://www.callofduty.com/warzone" target="_blank" class="tag">BATTLE ROYALE</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>RAINBOW SIX SIEGE</h4>
+                    <p>Taktik maxsus operatsiyalar simulyatori. Strategiya va aniqlik.</p>
+                    <a href="https://www.ubisoft.com/en-us/game/rainbow-six/siege" target="_blank" class="tag">TAKTIK FPS</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>MOBILE LEGENDS</h4>
+                    <p>Eng mashhur mobil MOBA. 5v5 tez janglar telefoningizda.</p>
+                    <a href="https://m.mobilelegends.com/" target="_blank" class="tag">MOBILE MOBA</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>BALDUR'S GATE 3</h4>
+                    <p>2023 yilning o'yini. Turn-based RPG eng yuqori darajada.</p>
+                    <a href="https://baldursgate3.game/" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>GENSHIN IMPACT</h4>
+                    <p>Ochiq dunyo anime-style RPG. Ajoyib grafika va gacha tizimi.</p>
+                    <a href="https://genshin.hoyoverse.com/" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>DESTINY 2</h4>
+                    <p>Kosmik MMO shooter. PvE va PvP kontenti bilan ajoyib looter shooter.</p>
+                    <a href="https://www.bungie.net/7/en/Destiny/NewLight" target="_blank" class="tag">MMO SHOOTER</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>FINAL FANTASY XIV</h4>
+                    <p>Eng yaxshi MMORPG. Ajoyib hikoya va katta jamoa.</p>
+                    <a href="https://www.finalfantasyxiv.com/" target="_blank" class="tag">MMORPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>WORLD OF WARCRAFT</h4>
+                    <p>Klassik MMORPG. 20 yillik tarix va katta dunyo.</p>
+                    <a href="https://worldofwarcraft.blizzard.com/" target="_blank" class="tag">MMORPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>STARFIELD</h4>
+                    <p>Bethesda'dan kosmik RPG. 1000+ sayyora va cheksiz eksploratsiya.</p>
+                    <a href="https://bethesda.net/en/game/starfield" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>HOGWARTS LEGACY</h4>
+                    <p>Harry Potter dunyosida RPG. Hogwarts maktabida sehrli sarguzashtlar.</p>
+                    <a href="https://www.hogwartslegacy.com/" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>SPIDER-MAN 2</h4>
+                    <p>PlayStation 5 exclusive. Peter va Miles bilan ajoyib o'rgimchak-odam tajribasi.</p>
+                    <a href="https://www.playstation.com/en-us/games/marvels-spider-man-2/" target="_blank" class="tag">ACTION</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>GOD OF WAR RAGNARÖK</h4>
+                    <p>Kratos va Atreus'ning nordic sarguzashti davomi. Ajoyib aksiya va hikoya.</p>
+                    <a href="https://www.playstation.com/en-us/games/god-of-war-ragnarok/" target="_blank" class="tag">ACTION</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>RESIDENT EVIL 4 REMAKE</h4>
+                    <p>Klassik survival horror'ning zamonaviy versiyasi. Qo'rqinchli va ajoyib.</p>
+                    <a href="https://www.residentevil.com/re4/" target="_blank" class="tag">HORROR</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>STREET FIGHTER 6</h4>
+                    <p>Eng yaxshi jangovar o'yin. Modern boshqaruv va klassik mexanika.</p>
+                    <a href="https://www.streetfighter.com/6/" target="_blank" class="tag">FIGHTING</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>MORTAL KOMBAT 1</h4>
+                    <p>Brutal jangovar o'yin. Fatality va ajoyib grafika.</p>
+                    <a href="https://www.mortalkombat.com/" target="_blank" class="tag">FIGHTING</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>TEKKEN 8</h4>
+                    <p>3D jangovar o'yinning eng yangi versiyasi. Unreal Engine 5'da yaratilgan.</p>
+                    <a href="https://www.bandainamcoent.com/games/tekken-8" target="_blank" class="tag">FIGHTING</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>HELLDIVERS 2</h4>
+                    <p>Ko'p o'yinchili kooperativ shooter. Jamoaviy strategiya va kaos.</p>
+                    <a href="https://www.playstation.com/en-us/games/helldivers-2/" target="_blank" class="tag">CO-OP SHOOTER</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>PALWORLD</h4>
+                    <p>Pokemon va survival kombinatsiyasi. Pals bilan qurilish va jang.</p>
+                    <a href="https://www.pocketpair.jp/palworld" target="_blank" class="tag">SURVIVAL</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>LETHAL COMPANY</h4>
+                    <p>Co-op horror survival. Do'stlar bilan qo'rqinchli missiyalar.</p>
+                    <a href="https://store.steampowered.com/app/1966720/Lethal_Company/" target="_blank" class="tag">HORROR</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>RUST</h4>
+                    <p>Qattiq survival multiplayer. Qurilish, yig'ish va boshqalarga qarshi kurash.</p>
+                    <a href="https://rust.facepunch.com/" target="_blank" class="tag">SURVIVAL</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>ARK: SURVIVAL EVOLVED</h4>
+                    <p>Dinozavrlar bilan survival. Qo'lga olish, qurish va eksploratsiya.</p>
+                    <a href="https://www.playark.com/" target="_blank" class="tag">SURVIVAL</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>SONS OF THE FOREST</h4>
+                    <p>Horror survival o'rtada o'rmonda. Kanikular va sirlar.</p>
+                    <a href="https://endnightgames.com/games/sons-of-the-forest" target="_blank" class="tag">HORROR</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>DIABLO IV</h4>
+                    <p>Hack and slash RPG. Loot, dungeon va ko'p o'yinchi.</p>
+                    <a href="https://diablo4.blizzard.com/" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>PATH OF EXILE</h4>
+                    <p>Free-to-play ARPG. Chuqur mexanika va cheksiz build'lar.</p>
+                    <a href="https://www.pathofexile.com/" target="_blank" class="tag">RPG</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>WARFRAME</h4>
+                    <p>Free-to-play ninja shooter. Kosmik aksiya va parkour.</p>
+                    <a href="https://www.warframe.com/" target="_blank" class="tag">SHOOTER</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>TITANFALL 2</h4>
+                    <p>Mecha shooter ajoyib kampaniya bilan. Tez va dinamik multiplayer.</p>
+                    <a href="https://www.ea.com/games/titanfall/titanfall-2" target="_blank" class="tag">FPS</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>HALO INFINITE</h4>
+                    <p>Iconic FPS franchisedan multiplayer. Free-to-play.</p>
+                    <a href="https://www.halowaypoint.com/halo-infinite" target="_blank" class="tag">FPS</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>BATTLEFIELD 2042</h4>
+                    <p>Katta o'lchamdagi jang. 128 o'yinchi va katta xaritalar.</p>
+                    <a href="https://www.ea.com/games/battlefield/battlefield-2042" target="_blank" class="tag">FPS</a>
+                    <div class="rating">★★★☆☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>ESCAPE FROM TARKOV</h4>
+                    <p>Hardcore realistic FPS. Survival va looting mexanikasi.</p>
+                    <a href="https://www.escapefromtarkov.com/" target="_blank" class="tag">FPS</a>
+                    <div class="rating">★★★★☆</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>STRAY</h4>
+                    <p>Mushuk sifatida cyberpunk dunyoda sarguzasht. Noyob va chiroyli.</p>
+                    <a href="https://stray.game/" target="_blank" class="tag">SARGUZASHT</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>IT TAKES TWO</h4>
+                    <p>Co-op-only sarguzasht. Ikki o'yinchi uchun ajoyib tajriba.</p>
+                    <a href="https://www.ea.com/games/it-takes-two" target="_blank" class="tag">CO-OP</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+
+                <div class="catalog-item">
+                    <h4>Blood Strike</h4>
+                    <p>Co-op-only sarguzasht. Ikki o'yinchi uchun ajoyib tajriba.</p>
+                    <a href="https://www.blood-strike.com/" target="_blank" class="tag">play</a>
+                    <div class="rating">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="creator">⚡ Created by Akif_VorteX ⚡</p>
+            <p>&copy; 2022-2026 ZENOVA - Barcha huquqlar himoyalangan</p>
+            <p>O'zbekistonning №1 o'yinlar platformasi</p>
+            <p>Aloqa: +998 94 209 28 06 | info@zenova.uz</p>
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const catalogGrid = document.getElementById('catalogGrid');
+        const gameCount = document.getElementById('gameCount');
+        const noResults = document.getElementById('noResults');
+        const allItems = catalogGrid.querySelectorAll('.catalog-item');
+
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            allItems.forEach(item => {
+                const title = item.querySelector('h4').textContent.toLowerCase();
+                const description = item.querySelector('p').textContent.toLowerCase();
+                const tags = Array.from(item.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
+
+                if (title.includes(searchTerm) || description.includes(searchTerm) || tags.includes(searchTerm)) {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            gameCount.textContent = visibleCount + ' ta o\'yin topildi';
+
+            if (visibleCount === 0) {
+                noResults.classList.add('show');
+            } else {
+                noResults.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

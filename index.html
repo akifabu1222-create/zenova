@@ -5,19 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZENOVA - O'zbekistonning №1 Gaming Platformasi</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ZENOVA - O'zbekistonning №1 Gaming Platformasi</title>
-        
-        <!-- FAVICON - SHU QATORNI QO'SHING -->
-        <link rel="icon" type="image/png" href="img/preview.webp">
-                
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="profile.html">
-    </head>
+    
     <style>
+    @media (max-width: 768px) {
+   /* MEN BERGAN KODNI ICHIGA QO'Y */
+}
+    /* 📱 GLOBAL MOBILE FIX */
+img, canvas, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* CONTAINER */
+.container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 12px;
+}
+
+/* HERO */
+.hero h1 {
+    font-size: clamp(2rem, 6vw, 4.5em);
+}
+
+.hero p {
+    font-size: clamp(1rem, 3vw, 1.5em);
+}
+
+/* LOGO */
+.logo-img {
+    width: 45px;
+    height: 45px;
+}
+
+.logo-text {
+    font-size: clamp(1.5rem, 5vw, 2.5em);
+}
+
+/* GRID FIX */
+.games-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.catalog-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* GAME CARD */
+.game-card {
+    padding: 20px;
+}
+
+.game-card h3 {
+    font-size: 1.4em;
+}
+
+/* BUTTON */
+.play-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.9em;
+}
+
+/* STATS */
+.stats {
+    gap: 20px;
+}
+
+.stat-number {
+    font-size: clamp(1.8rem, 5vw, 3em);
+}
+
+/* LEADERBOARD */
+.leaderboard-item {
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.leaderboard-name {
+    font-size: 1em;
+}
+
+.leaderboard-score {
+    font-size: 1em;
+}
+
+/* ABOUT */
+.about-section {
+    padding: 25px;
+}
+
+.about-content {
+    font-size: 1.1em;
+}
+
+/* CONTACT */
+.contact-info {
+    gap: 20px;
+}
+
+.contact-item {
+    font-size: 1em;
+}
+
+/* CANVAS */
+canvas {
+    width: 100% !important;
+    height: auto !important;
+}
+
+/* GAME CONTAINER */
+.game-wrapper {
+    width: 95vw;
+}
+
+.game-info {
+    font-size: 0.9em;
+    padding: 10px;
+}
+
+/* WELCOME SCREEN */
+.welcome-logo {
+    width: 100px;
+    height: 100px;
+}
+
+.welcome-title {
+    font-size: clamp(2rem, 6vw, 4em);
+}
+
+.loading-bar {
+    width: 200px;
+}
         :root {
             --primary: #00ff41;
             --secondary: #ff00ff;
@@ -38,7 +157,7 @@
             position: fixed;
             inset: 0;
             background: radial-gradient(circle at 20% 50%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80% rgba(255, 0, 255, 0.1) 0%, transparent 50%);
+                        radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%);
             animation: bgPulse 15s ease-in-out infinite;
             z-index: 0;
             pointer-events: none;
@@ -367,23 +486,40 @@
             nav ul { gap: 10px; }
             .about-section { padding: 30px 20px; }
         }
+    @media (max-width: 768px) {
+    nav ul {
+        display: none !important;
+        flex-direction: column;
+        width: 100%;
+        background: #050814;
+    }
+
+    nav ul.active {
+        display: flex !important;
+    }
+}
     </style>
 </head>
 <body>
+    
     <header>
         <div class="container">
             <nav>
                 <div class="logo-container">
-                    <img src="img/preview.webp" alt="ZENOVA Logo" class="logo-img">
+                    <img src="logo.png" alt="ZENOVA Logo" class="logo-img">
                     <div class="logo-text">ZENOVA</div>
+                    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
                 </div>
                 <ul>
-                    <li><a href="games-info.html">O'yinlar Haqida</a></li>
-                    <li><a href="catalog.html">O'yinlar 2 Haqida</a></li>
+                    <li><a href="#home">Bosh Sahifa</a></li>
                     <li><a href="#games">O'yinlar</a></li>
                     <li><a href="#leaderboard">Rekorlar</a></li>
                     <li><a href="#catalog">Katalog</a></li>
                     <li><a href="#about">Biz Haqimizda</a></li>
+                    <li><a href="catalog.html">Qidiruv</a></li>
+                    <li><a href="auth.html">login</a></li>
+                    <li><a href="profile.html">profil</a></li>
+                    <li><a href="games-info.html">o'yin haqida</a></li>
                 </ul>
             </nav>
         </div>
@@ -396,7 +532,7 @@
                 <p>O'zbekistonning №1 Professional Gaming Platformasi</p>
                 <div class="stats">
                     <div class="stat-item">
-                        <div class="stat-number">10+</div>
+                        <div class="stat-number">6</div>
                         <div class="stat-label">O'ynaladigan O'yinlar</div>
                     </div>
                     <div class="stat-item">
@@ -456,7 +592,7 @@
                     <div class="leaderboard-item">
                         <span class="leaderboard-rank">#1</span>
                         <span class="leaderboard-name">Akif_VorteX</span>
-                        <span class="leaderboard-score">56,850</span>
+                        <span class="leaderboard-score">15,850</span>
                     </div>
                     <div class="leaderboard-item">
                         <span class="leaderboard-rank">#2</span>
@@ -514,49 +650,50 @@
                     <div class="catalog-item">
                         <h4>PUBG MOBILE</h4>
                         <p>100 o'yinchi, bitta g'olib. Eng mashhur mobile battle royale o'yini dunyoda.</p>
-                        <span><a href="https://pubg-mobile-tencent-games.en.aptoide.com/app" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[PUBG MOBILE&#160;]</a></span>
+                        <span class="tag">BATTLE ROYALE</span>
                         <div class="rating">★★★★★</div>
                     </div>
                     <div class="catalog-item">
                         <h4>MINECRAFT</h4>
                         <p>Cheksiz imkoniyatlar dunyosi. Quring, kashf eting va o'z dunyongizni yarating!</p>
-                        <span><a href="https://klauncher.gg/minecraft/versions" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Dowload for free&#160;]</a></span>
+                        <span class="tag">SARGUZASHT</span>
+                        <span class="tag">KREATIV</span>
                         <div class="rating">★★★★★</div>
                     </div>
                     <div class="catalog-item">
                         <h4>FORTNITE</h4>
-                         <p>Qurish va otishma kombinatsiyasi. Jonli va dinamik battle royale tajribasi.</p>
-                        <span><a href="https://www.fortnite.com/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Play]</a></span>
+                        <p>Qurish va otishma kombinatsiyasi. Jonli va dinamik battle royale tajribasi.</p>
+                        <span class="tag">BATTLE ROYALE</span>
                         <div class="rating">★★★★★</div>
                     </div>
                     <div class="catalog-item">
                         <h4>COUNTER-STRIKE 2</h4>
                         <p>Yangilangan klassik taktik shooter. Professional e-sport o'yini.</p>
-                        <span><a href="https://www.counter-strike.net/cs2" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Play]</a></span>
+                        <span class="tag">FPS</span>
                         <div class="rating">★★★★★</div>
                     </div>
                     <div class="catalog-item">
                         <h4>VALORANT</h4>
                         <p>5v5 taktik FPS qobiliyatlar bilan. Riot Games'dan eng yaxshi shooter.</p>
-                        <span><a href="https://playvalorant.com/en-us/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Play for free]</a></span>
+                        <span class="tag">TAKTIK FPS</span>
                         <div class="rating">★★★★★</div>
                     </div>
                     <div class="catalog-item">
                         <h4>GTA V</h4>
                         <p>Ochiq dunyo jinoyat sarguzashti. Los Santos shahrida erkin hayot.</p>
-                        <span><a href="https://www.rockstargames.com/gta-v" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[buy now]</a></span>
+                        <span class="tag">OCHIQ DUNYO</span>
                         <div class="rating">★★★★★</div>
                     </div>
                     <div class="catalog-item">
                         <h4>LEAGUE OF LEGENDS</h4>
                         <p>Dunyodagi eng mashhur MOBA. 160+ champion va strategiya.</p>
-                        <span><a href="https://www.mobilelegends.com/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Dowload for free]]</a></span>
+                        <span class="tag">MOBA</span>
                         <div class="rating">★★★★★</div>
                     </div>
                     <div class="catalog-item">
                         <h4>DOTA 2</h4>
                         <p>Professional e-sport MOBA. Murakkab va mukofotli gameplay.</p>
-                        <span><a href="https://www.dota2.com/home" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[Dowload for free]]</a></span>
+                        <span class="tag">MOBA</span>
                         <div class="rating">★★★★★</div>
                     </div>
                 </div>
@@ -573,14 +710,11 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <span>📱</span>
-                        <span>+998 94 209 28 06</span>
+                        <span>+998 93 917 32 22</span>
                     </div>
                     <div class="contact-item">
                         <span>✉️</span>
-                        <span><a href="https://web.telegram.org/a/" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[@t.me&#160;AbdurashidovAkif]</a></span>
-                        <span>▶</span>
-                        <a href="https://www.youtube.com/@Zenova-Gaming1" class="__cf_email__" data-cfemail="31585f575e714b545f5e47501f444b">[@&#160;Zenova-Gaming1]</a>
-
+                        <span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b8bfb7be91abb4bfbea7b0ffa4ab">[email&#160;protected]</a></span>
                     </div>
                 </div>
             </div>
@@ -591,10 +725,9 @@
         <div class="container">
             <div class="footer-content">
                 <p class="creator">⚡ Created by Akif_VorteX ⚡</p>
-                <p>&copy; 2022-2026 ZENOVA - Barcha huquqlar himoyalangan</p>
-                <p>O'zbekistonning professional o'yinlar platformasi</p>
-                <p>Aloqa: +998 94 209 28 06 | <a href="https://web.telegram.org/a/" class="__cf_email__" data-cfemail="31585f575e714b545f5e47501f444b">[@t.me&#160;AbdurashidovAkif]</a></p>
-                <a href="https://www.youtube.com/@Zenova-Gaming1" class="__cf_email__" data-cfemail="31585f575e714b545f5e47501f444b">[@&#160;Zenova-Gaming1]</a>
+                <p>&copy; 2022-2024 ZENOVA - Barcha huquqlar himoyalangan</p>
+                <p>O'zbekistonning №1 o'yinlar platformasi</p>
+                <p>Aloqa: +998 93 917 32 22 | <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="31585f575e714b545f5e47501f444b">[email&#160;protected]</a></p>
             </div>
         </div>
     </footer>
@@ -610,16 +743,26 @@
     <!-- Welcome Overlay -->
     <div class="welcome-overlay" id="welcomeOverlay">
         <div class="welcome-content">
-            <img src="img/preview.webp" alt="ZENOVA" class="welcome-logo">
+            <img src="logo.png" alt="ZENOVA" class="welcome-logo">
             <h1 class="welcome-title">Welcome to ZENOVA</h1>
-            <p class="welcome-subtitle">O'zbekistonning professional Gaming Platformasi</p>
+            <p class="welcome-subtitle">O'zbekistonning №1 Gaming Platformasi</p>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
         </div>
     </div>
-
     <style>
+    .menu-toggle {
+    display: none;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+}
         .welcome-overlay {
             position: fixed;
             top: 0;
@@ -714,7 +857,11 @@
             to { width: 100%; }
         }
     </style>
-
+<script>
+function toggleMenu() {
+    document.querySelector("nav ul").classList.toggle("active");
+}
+</script>
     <script>
         // Welcome overlay'ni 3 sekunddan keyin o'chirish
         setTimeout(function() {
@@ -724,11 +871,252 @@
             }
         }, 3000);
     </script>
+    <script>
+// O'YIN KODI TO'G'RIDAN-TO'G'RI SHU YERDA
+const GameSystem = {
+    canvas: null, ctx: null, container: null, info: null,
+    loop: null, direction: 'RIGHT', score: 0,
+    snake: [], food: {x: 0, y: 0}, box: 20
+};
+
+// Sahifa yuklanganda elementlarni bog'lash
+window.addEventListener('load', function() {
+    GameSystem.canvas = document.getElementById('gameCanvas');
+    GameSystem.container = document.getElementById('gameContainer');
+    GameSystem.info = document.getElementById('gameInfo');
+    if(GameSystem.canvas) GameSystem.ctx = GameSystem.canvas.getContext('2d');
+    console.log("O'yin tizimi yuklandi!");
+});
+
+function startGame(type) {
+    if (!GameSystem.container) {
+        alert("Xato: gameContainer topilmadi!");
+        return;
+    }
+    clearInterval(GameSystem.loop);
+    GameSystem.container.style.display = 'flex';
+    GameSystem.container.classList.add('active');
+    GameSystem.direction = 'RIGHT';
+
+    if (type === 'snake') runSnake();
+    else if (type === 'pong') runPong();
+    else GameSystem.info.innerHTML = "Tez kunda: " + type;
+}
+
+function runSnake() {
+    GameSystem.score = 0;
+    GameSystem.snake = [{x: 10 * GameSystem.box, y: 10 * GameSystem.box}];
+    GameSystem.canvas.width = Math.min(window.innerWidth - 40, 400);
+    GameSystem.canvas.height = GameSystem.canvas.width;
+    spawnFood();
+    addControls();
+    GameSystem.loop = setInterval(drawSnake, 150);
+}
+
+function spawnFood() {
+    GameSystem.food = {
+        x: Math.floor(Math.random() * (GameSystem.canvas.width / GameSystem.box)) * GameSystem.box,
+        y: Math.floor(Math.random() * (GameSystem.canvas.height / GameSystem.box)) * GameSystem.box
+    };
+}
+
+function drawSnake() {
+    const ctx = GameSystem.ctx;
+    const box = GameSystem.box;
+    ctx.fillStyle = "#050814";
+    ctx.fillRect(0, 0, GameSystem.canvas.width, GameSystem.canvas.height);
+    GameSystem.snake.forEach((part, index) => {
+        ctx.fillStyle = (index === 0) ? "#00ff41" : "#00d4ff";
+        ctx.fillRect(part.x, part.y, box-2, box-2);
+    });
+    ctx.fillStyle = "#ff00ff";
+    ctx.fillRect(GameSystem.food.x, GameSystem.food.y, box-2, box-2);
+
+    let headX = GameSystem.snake[0].x;
+    let headY = GameSystem.snake[0].y;
+    if (GameSystem.direction === "LEFT") headX -= box;
+    if (GameSystem.direction === "UP") headY -= box;
+    if (GameSystem.direction === "RIGHT") headX += box;
+    if (GameSystem.direction === "DOWN") headY += box;
+
+    if (headX < 0 || headX >= GameSystem.canvas.width || headY < 0 || headY >= GameSystem.canvas.height) return gameOver();
+
+    let newHead = {x: headX, y: headY};
+    if (headX === GameSystem.food.x && headY === GameSystem.food.y) {
+        GameSystem.score += 10;
+        GameSystem.info.innerHTML = "BALL: " + GameSystem.score;
+        spawnFood();
+    } else GameSystem.snake.pop();
+    GameSystem.snake.unshift(newHead);
+}
+
+function runPong() {
+    GameSystem.score = 0;
+    let aiScore = 0;
+    GameSystem.canvas.width = Math.min(window.innerWidth - 40, 600);
+    GameSystem.canvas.height = 300;
+    let paddleH = 60, paddleW = 10, playerY = 120, aiY = 120;
+    let ball = { x: 300, y: 150, dx: 4, dy: 4 };
+    addControls();
+    GameSystem.loop = setInterval(() => {
+        if (GameSystem.direction === "UP") playerY -= 5;
+        if (GameSystem.direction === "DOWN") playerY += 5;
+        playerY = Math.max(0, Math.min(GameSystem.canvas.height - paddleH, playerY));
+        if (ball.y > aiY + paddleH/2) aiY += 3; else aiY -= 3;
+        ball.x += ball.dx; ball.y += ball.dy;
+        if (ball.y < 0 || ball.y > GameSystem.canvas.height) ball.dy *= -1;
+        if (ball.x < paddleW && ball.y > playerY && ball.y < playerY + paddleH) ball.dx *= -1.1;
+        if (ball.x > GameSystem.canvas.width - paddleW && ball.y > aiY && ball.y < aiY + paddleH) ball.dx *= -1.1;
+        if (ball.x < 0) { aiScore++; ball.x = 300; ball.y = 150; ball.dx = 4; }
+        if (ball.x > GameSystem.canvas.width) { GameSystem.score++; ball.x = 300; ball.y = 150; ball.dx = -4; }
+        GameSystem.info.innerHTML = `SIZ: ${GameSystem.score} | AI: ${aiScore}`;
+        GameSystem.ctx.fillStyle = "#050814"; GameSystem.ctx.fillRect(0,0,600,400);
+        GameSystem.ctx.fillStyle = "#00ff41"; GameSystem.ctx.fillRect(0,playerY,paddleW,paddleH);
+        GameSystem.ctx.fillStyle = "#ff00ff"; GameSystem.ctx.fillRect(GameSystem.canvas.width-paddleW,aiY,paddleW,paddleH);
+        GameSystem.ctx.fillStyle = "#fff"; GameSystem.ctx.beginPath(); GameSystem.ctx.arc(ball.x,ball.y,6,0,Math.PI*2); GameSystem.ctx.fill();
+    }, 1000/60);
+}
+
+function gameOver() { clearInterval(GameSystem.loop); alert("Tugadi! Ball: " + GameSystem.score); closeGame(); }
+function closeGame() {
+    GameSystem.container.style.display = 'none';
+    clearInterval(GameSystem.loop);
+    if(document.getElementById('mobileControls')) document.getElementById('mobileControls').remove();
+}
+
+function addControls() {
+    document.onkeydown = (e) => {
+        if(e.keyCode == 37 && GameSystem.direction != "RIGHT") GameSystem.direction = "LEFT";
+        if(e.keyCode == 38 && GameSystem.direction != "DOWN") GameSystem.direction = "UP";
+        if(e.keyCode == 39 && GameSystem.direction != "LEFT") GameSystem.direction = "RIGHT";
+        if(e.keyCode == 40 && GameSystem.direction != "UP") GameSystem.direction = "DOWN";
+    };
+    if(!document.getElementById('mobileControls')) {
+        const div = document.createElement('div');
+        div.id = 'mobileControls';
+        div.style = "position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:grid; grid-template-columns:repeat(3,65px); gap:10px; z-index:10000;";
+        div.innerHTML = `
+            <div></div><button onclick="GameSystem.direction='UP'" style="height:65px; background:#00ff4133; border:1px solid #00ff41; color:white; border-radius:10px;">▲</button><div></div>
+            <button onclick="GameSystem.direction='LEFT'" style="height:65px; background:#00ff4133; border:1px solid #00ff41; color:white; border-radius:10px;">◀</button>
+            <button onclick="GameSystem.direction='DOWN'" style="height:65px; background:#00ff4133; border:1px solid #00ff41; color:white; border-radius:10px;">▼</button>
+            <button onclick="GameSystem.direction='RIGHT'" style="height:65px; background:#00ff4133; border:1px solid #00ff41; color:white; border-radius:10px;">▶</button>`;
+        document.body.appendChild(div);
+    }
+}
+    // --- SHOOTER O'YINI ---
+function runShooter() {
+    GameSystem.score = 0;
+    // Canvas o'lchamini moslash
+    GameSystem.canvas.width = Math.min(window.innerWidth - 40, 500);
+    GameSystem.canvas.height = 500;
+
+    let player = { x: GameSystem.canvas.width / 2 - 15, y: 440, w: 30, h: 30 };
+    let bullets = [];
+    let enemies = [];
+    
+    // Dushmanlarni chiqarish taymeri
+    let enemyInterval = setInterval(() => {
+        enemies.push({
+            x: Math.random() * (GameSystem.canvas.width - 30),
+            y: -30,
+            w: 30,
+            h: 30,
+            speed: 2 + Math.random() * 2
+        });
+    }, 1000);
+
+    // O'q otish mantiqi
+    const fire = () => {
+        bullets.push({ x: player.x + 13, y: player.y, w: 4, h: 10 });
+    };
+
+    // Mobil uchun otish tugmasi
+    if(!document.getElementById('fireBtn')) {
+        const fBtn = document.createElement('button');
+        fBtn.id = 'fireBtn';
+        fBtn.innerHTML = "O'T OCHISH";
+        fBtn.style = "position:fixed; bottom:120px; right:20px; width:80px; height:80px; background:red; color:white; border-radius:50%; border:2px solid white; z-index:10001; font-weight:bold; font-size:10px;";
+        fBtn.onclick = fire;
+        document.body.appendChild(fBtn);
+    }
+
+    addControls();
+
+    GameSystem.loop = setInterval(() => {
+        const ctx = GameSystem.ctx;
+        
+        // Harakat (Chap/O'ng)
+        if (GameSystem.direction === "LEFT") player.x -= 6;
+        if (GameSystem.direction === "RIGHT") player.x += 6;
+        player.x = Math.max(0, Math.min(GameSystem.canvas.width - player.w, player.x));
+
+        // O'qlarni harakatlantirish
+        bullets.forEach((b, i) => {
+            b.y -= 8;
+            if (b.y < 0) bullets.splice(i, 1);
+        });
+
+        // Dushmanlar harakati va to'qnashuv
+        enemies.forEach((e, ei) => {
+            e.y += e.speed;
+            
+            // Mag'lubiyat: Dushman yerga tegsa yoki kemaga urilsa
+            if (e.y > 500 || (e.x < player.x + 30 && e.x + 30 > player.x && e.y < player.y + 30 && e.y + 30 > player.y)) {
+                clearInterval(enemyInterval);
+                gameOver();
+            }
+
+            // Dushman o'qqa uchrasa
+            bullets.forEach((b, bi) => {
+                if (b.x < e.x + 30 && b.x + 4 > e.x && b.y < e.y + 30 && b.y + 10 > e.y) {
+                    enemies.splice(ei, 1);
+                    bullets.splice(bi, 1);
+                    GameSystem.score += 20;
+                    GameSystem.info.innerHTML = "BALL: " + GameSystem.score;
+                }
+            });
+        });
+
+        // Chizish qismi
+        ctx.fillStyle = "#050814";
+        ctx.fillRect(0, 0, GameSystem.canvas.width, GameSystem.canvas.height);
+
+        ctx.fillStyle = "#00ff41"; // Kema (Yashil)
+        ctx.fillRect(player.x, player.y, 30, 30);
+
+        ctx.fillStyle = "#ffff00"; // O'qlar (Sariq)
+        bullets.forEach(b => ctx.fillRect(b.x, b.y, 4, 10));
+
+        ctx.fillStyle = "#ff0000"; // Dushmanlar (Qizil)
+        enemies.forEach(e => ctx.fillRect(e.x, e.y, 30, 30));
+        
+    }, 1000 / 60);
+}
+if(document.getElementById('fireBtn')) document.getElementById('fireBtn').remove();
+function startGame(type) {
+    if (!GameSystem.container) return;
+    
+    clearInterval(GameSystem.loop);
+    // Eskirgan otish tugmasi bo'lsa o'chirish
+    if(document.getElementById('fireBtn')) document.getElementById('fireBtn').remove();
+    
+    GameSystem.container.style.display = 'flex';
+    GameSystem.container.classList.add('active');
+
+    if (type === 'snake') {
+        runSnake();
+    } else if (type === 'pong') {
+        runPong();
+    } else if (type === 'shooter' || type === 'target') {
+        runShooter();
+    } else {
+        GameSystem.info.innerHTML = "Tez kunda: " + type;
+    }
+}
+
+</script>
+
 
     <script src="game-core.js"></script>
-    <script src="auth-integration.js"></script>
-    <script src="leaderboard-update.js"></script>  
-    <script src="auto-redirect.js"></script>
-    
 </body>
 </html>
